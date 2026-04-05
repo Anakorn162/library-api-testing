@@ -73,5 +73,13 @@ describe('Integration Test: Library API Endpoints', () => {
       });
       expect(res.statusCode).toBe(200);
     });
+    test('10. อัปเดตหนังสือที่ไม่มีอยู่จริง ควรได้ Status 404', async () => {
+      const res = await request(app).put('/api/books/999').send({ title: "No" });
+      expect(res.statusCode).toBe(404);
+    });
+    test('11. อัปเดตด้วยข้อมูลที่ผิดประเภท (เช่นส่งเลขแทนชื่อ) ระบบควรจัดการได้', async () => {
+      const res = await request(app).put('/api/books/1').send({ title: 12345 });
+      expect(res.statusCode).toBe(400); // หรือ 200 ตามที่โค้ดคุณรับมือ
+    });
   }); 
 });

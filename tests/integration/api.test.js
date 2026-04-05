@@ -11,4 +11,11 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(Array.isArray(res.body)).toBeTruthy();
     });
   });
+  describe('GET /api/books/:id', () => {
+    test('2. ค้นหาหนังสือที่มีอยู่ ควรได้ Status 200', async () => {
+      const res = await request(app).get('/api/books/1'); // สมมติว่า ID 1 มีอยู่จริง
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toHaveProperty('id');
+    });
+  });
 });

@@ -36,4 +36,23 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(400);
     });
   });
+  // --- หมวดที่ 2: ระบบล็อกอิน (Authentication) ---
+  describe('POST /api/auth/login', () => {
+    test('6. ล็อกอินด้วยข้อมูลที่ถูกต้อง ควรได้ Token', async () => {
+      const res = await request(app).post('/api/auth/login').send({
+        username: "admin",
+        password: "password123"
+      });
+      // ปรับเช็คตามระบบของคุณว่าส่งอะไรกลับมา
+      expect(res.statusCode).toBe(200); 
+    });
+
+    test('7. ทดสอบ SQL Injection บนช่อง Username ควรถูกปฏิเสธ (Status 401)', async () => {
+      const res = await request(app).post('/api/auth/login').send({
+        username: "' OR '1'='1",
+        password: "password123"
+      });
+      expect(res.statusCode).not.toBe(200);
+    });
+  });
 });

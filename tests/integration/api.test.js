@@ -17,5 +17,9 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveProperty('id');
     });
+    test('3. ค้นหาหนังสือที่ไม่มีอยู่ ควรได้ Status 404', async () => {
+      const res = await request(app).get('/api/books/9999');
+      expect(res.statusCode).toBe(404);
+    });
   });
 });

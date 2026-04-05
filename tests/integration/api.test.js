@@ -55,4 +55,23 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).not.toBe(200);
     });
   });
+  // --- หมวดที่ 3: การยืมหนังสือ (Borrow) ---
+  describe('POST /api/borrow', () => {
+    test('8. ยืมหนังสือสำเร็จ ควรได้ Status 200', async () => {
+      const res = await request(app).post('/api/borrow').send({ bookId: 1 })
+      .set('Authorization', 'Bearer valid-token-here'); // สมมติว่าต้องใช้ Token
+      
+      expect(res.statusCode).toBe(200);
+    });
+  });
+ // --- หมวดที่ 4: การอัปเดตข้อมูลหนังสือ (PUT) ---
+  describe('PUT /api/books/:id', () => {
+    test('9. อัปเดตข้อมูลหนังสือสำเร็จ ควรได้ Status 200', async () => {
+      const res = await request(app).put('/api/books/1').send({
+        title: "Updated Title",
+        author: "Updated Author"
+      });
+      expect(res.statusCode).toBe(200);
+    });
+  }); 
 });

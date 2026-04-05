@@ -114,4 +114,19 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(401);
     });
   });
+  // --- หมวดที่ 7: การตรวจสอบความปลอดภัย (Security Extra) ---
+  describe('Security Check', () => {
+    test('17. ทดสอบส่ง Script (XSS) ในฟิลด์ Title ควรถูกปฏิเสธหรือจัดการได้', async () => {
+      const res = await request(app).post('/api/books').send({
+        title: "<script>alert('XSS')</script>",
+        author: "Hacker"
+      });
+      expect(res.statusCode).toBe(400); // หรือ 201 แต่ต้องมีการจัดการข้อมูล
+    });
+
+    test('18. เข้าถึงข้อมูล Admin โดยไม่ล็อกอิน ควรได้ Status 401/403', async () => {
+      const res = await request(app).get('/api/admin/stats'); // สมมติว่ามีหน้า admin
+      expect([401, 403]).toContain(res.statusCode);
+    });
+  });
 });

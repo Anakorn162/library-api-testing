@@ -111,6 +111,13 @@ app.post('/api/borrow', (req, res) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`🚀 Mock API Server is running on http://localhost:${PORT}`);
-});
+
+// เช็คว่าถ้าไม่ได้รันผ่านระบบ Test (Jest) ถึงจะให้เปิด Port 3000 จริงๆ
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Mock API Server is running on http://localhost:${PORT}`);
+    });
+}
+
+// ⚠️ โค้ดบรรทัดนี้สำคัญที่สุด! ต้องส่งออก app เพื่อให้ Supertest ดึงไปทดสอบได้
+module.exports = app;

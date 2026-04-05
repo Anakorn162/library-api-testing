@@ -1,7 +1,5 @@
-// tests/integration/api.test.js
 const request = require('supertest');
-// สมมติว่า URL API ของโปรเจคอาจารย์คือ http://localhost:3000
-const API_URL = 'http://localhost:3000'; 
+const app = require('../../src/server');
 
 describe('Integration Test: Books API', () => {
   test('GET /api/books ควรได้ Status 200', async () => {

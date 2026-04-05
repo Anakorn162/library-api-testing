@@ -82,4 +82,16 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(400); // หรือ 200 ตามที่โค้ดคุณรับมือ
     });
   }); 
+  // --- หมวดที่ 5: การลบหนังสือ (DELETE) ---
+  describe('DELETE /api/books/:id', () => {
+    test('12. ลบหนังสือสำเร็จ ควรได้ Status 200 หรือ 204', async () => {
+      const res = await request(app).delete('/api/books/1');
+      expect([200, 204]).toContain(res.statusCode);
+    });
+
+    test('13. ลบหนังสือที่ไม่มีอยู่จริง ไม่ควร Error รุนแรง (Status 404)', async () => {
+      const res = await request(app).delete('/api/books/999');
+      expect(res.statusCode).toBe(404);
+    });
+  });
 });

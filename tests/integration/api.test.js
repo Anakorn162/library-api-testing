@@ -22,4 +22,13 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(404);
     });
   });
+  describe('POST /api/books', () => {
+    test('4. สร้างหนังสือใหม่สำเร็จ ควรได้ Status 201', async () => {
+      const res = await request(app).post('/api/books').send({
+        title: "Test Book",
+        author: "John Doe"
+      });
+      expect([200, 201]).toContain(res.statusCode); 
+    });
+  });
 });

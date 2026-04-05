@@ -129,4 +129,17 @@ describe('Integration Test: Library API Endpoints', () => {
       expect([401, 403]).toContain(res.statusCode);
     });
   });
+  // --- หมวดที่ 8: การจัดการข้อมูลขนาดใหญ่ (Boundary Values) ---
+  describe('Boundary Testing', () => {
+    test('19. ส่งชื่อหนังสือที่ยาวเกินกำหนด (เช่น 5000 ตัวอักษร)', async () => {
+      const longTitle = "a".repeat(5000);
+      const res = await request(app).post('/api/books').send({ title: longTitle, author: "A" });
+      expect(res.statusCode).toBe(400);
+    });
+
+    test('20. ส่ง ID เป็นค่าลบ /api/books/-1 ควรได้ Status 400/404', async () => {
+      const res = await request(app).get('/api/books/-1');
+      expect([400, 404]).toContain(res.statusCode);
+    });
+  });
 });

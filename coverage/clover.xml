@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1775395161342" clover="3.2.0">
-  <project timestamp="1775395161342" name="All files">
+<coverage generated="1775410708834" clover="3.2.0">
+  <project timestamp="1775410708834" name="All files">
     <metrics statements="75" coveredstatements="65" conditionals="50" coveredconditionals="38" methods="15" coveredmethods="13" elements="140" coveredelements="116" complexity="0" loc="75" ncloc="75" packages="1" files="2" classes="2"/>
     <file name="bookLogic.js" path="C:\Users\LENOVO\library-api-testing\src\bookLogic.js">
       <metrics statements="18" coveredstatements="18" conditionals="26" coveredconditionals="25" methods="3" coveredmethods="3"/>

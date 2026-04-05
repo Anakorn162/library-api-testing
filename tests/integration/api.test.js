@@ -30,5 +30,10 @@ describe('Integration Test: Library API Endpoints', () => {
       });
       expect([200, 201]).toContain(res.statusCode); 
     });
+
+    test('5. สร้างหนังสือโดยไม่ใส่ title ควรได้ Status 400', async () => {
+      const res = await request(app).post('/api/books').send({ author: "John Doe" });
+      expect(res.statusCode).toBe(400);
+    });
   });
 });

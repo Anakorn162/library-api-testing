@@ -94,4 +94,24 @@ describe('Integration Test: Library API Endpoints', () => {
       expect(res.statusCode).toBe(404);
     });
   });
+  // --- หมวดที่ 6: ระบบการยืมขั้นสูง (Borrowing Logic) ---
+  describe('Borrowing System Extra', () => {
+    test('14. ยืมหนังสือโดยไม่ส่ง bookId ควรได้ Status 400', async () => {
+      const res = await request(app).post('/api/borrow').send({});
+      expect(res.statusCode).toBe(400);
+    });
+
+    test('15. พยายามยืมหนังสือที่ถูกยืมไปแล้ว (Duplicate Borrow) ควรได้ Status 400/409', async () => {
+      // เคสนี้สำคัญมากสำหรับ Business Logic
+      const res = await request(app).post('/api/borrow').send({ bookId: 2 });
+      expect([400, 409]).toContain(res.statusCode);
+    });
+
+    test('16. ยืมหนังสือด้วย Token ที่หมดอายุ ควรได้ Status 401', async () => {
+      const res = await request(app).post('/api/borrow')
+        .set('Authorization', 'Bearer expired-token')
+        .send({ bookId: 1 });
+      expect(res.statusCode).toBe(401);
+    });
+  });
 });

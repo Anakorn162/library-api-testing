@@ -90,5 +90,4 @@ describe('Unit Test: Book Business Logic', () => {
             expect(calculateLateFee(10)).toBe(130); 
         });
     });
-
 });
